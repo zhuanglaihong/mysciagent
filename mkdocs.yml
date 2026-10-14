@@ -1,8 +1,8 @@
-site_name: myopenclaw
+site_name: MySciAgent
 site_description: 个人多 Agent 协作平台 — Docker Compose 一键部署文档
-site_url: https://ouyangwenyu.github.io/myopenclaw
-repo_url: https://github.com/OuyangWenyu/myopenclaw
-repo_name: OuyangWenyu/myopenclaw
+site_url: https://zhuanglaihong.github.io/mysciagent
+repo_url: https://github.com/zhuanglaihong/mysciagent
+repo_name: zhuanglaihong/mysciagent
 edit_uri: edit/main/docs/
 
 theme:
@@ -50,6 +50,8 @@ plugins:
 
 nav:
   - 首页: index.md
+  - 科研平台规划: research-platform-roadmap.md
+  - 仓库迁移状态: migration-status.md
   - 快速开始: setup.md
   - 架构: architecture.md
   - 服务:
@@ -77,3 +79,6 @@ nav:
       - AgentOps 健康采集: agentops.md
       - DNS 配置: dns-setup.md
       - 可移植性: portability.md
+
+exclude_docs: |
+  upstream/

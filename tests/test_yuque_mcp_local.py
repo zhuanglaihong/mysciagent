@@ -204,7 +204,11 @@ class TestPortabilityWiring:
 
     def test_clone_deps_includes_sibling_repo(self):
         script = (REPO_ROOT / "scripts" / "clone-deps.sh").read_text()
-        assert "gitcode.com/dlut-water/yuque_mcp_server" in script
+        assert "repositories.py" in script
+        import json
+        manifest = json.loads((REPO_ROOT / "repositories.json").read_text(encoding="utf-8"))
+        repo = next(r for r in manifest["components"] if r["name"] == "yuque_mcp_server")
+        assert repo["owned_url"] == "https://github.com/zhuanglaihong/yuque_mcp_server.git"
 
     def test_portability_doc_lists_sibling_repo(self):
         doc = (REPO_ROOT / "docs" / "portability.md").read_text()

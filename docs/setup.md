@@ -1,5 +1,7 @@
 # 快速开始
 
+> MySciAgent 迁移基线：请先阅读 [迁移状态](migration-status.md)。以下运行说明继承自上游；缺失组件和语雀版本问题解决前，不代表本项目已可部署。
+
 从零到运行 myopenclaw 的完整流程。
 
 ## 前置要求
@@ -10,8 +12,8 @@
 ## 1. 克隆仓库
 
 ```bash
-git clone https://github.com/OuyangWenyu/myopenclaw.git
-cd myopenclaw
+git clone https://github.com/zhuanglaihong/mysciagent.git
+cd mysciagent
 ```
 
 ## 2. 配置环境变量
@@ -61,7 +63,7 @@ cp .cloud.conf.example .cloud.conf
 如需 zhixun 知汛助手（水文智能问答飞书机器人），额外克隆：
 
 ```bash
-git clone https://github.com/OuyangWenyu/zhixun-agent.git ../zhixun-agent
+git clone https://github.com/zhuanglaihong/zhixun-agent.git ../zhixun-agent
 ```
 
 依赖关系详见 [可移植性](portability.md)。

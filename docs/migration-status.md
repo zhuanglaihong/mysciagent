@@ -1,0 +1,61 @@
+# 仓库迁移记录
+
+记录日期：2026-10-14。目标账号：`zhuanglaihong`。主仓和新复制的组件仓库均设为私有；复用仓库的可见性未改变。
+
+## 平台基线
+
+`OuyangWenyu/myopenclaw` 的 `main` 提交 `2dccce2b9370c83eec8e5823ebdacf7e6cbcb00b` 已复制到 `zhuanglaihong/mysciagent`。原始提交和 LICENSE 保留，本次集成改动在其后独立提交。源码范围为 Git 跟踪的内容，不含原作者本机账号、环境、数据库、模型密钥和运行数据。
+
+## 组件状态
+
+| 目标个人仓库 | 来源 | 状态与版本 |
+|---|---|---|
+| [mysciagent](https://github.com/zhuanglaihong/mysciagent) | OuyangWenyu/myopenclaw | 已创建并保留历史；本次集成基线 |
+| [dailyinfo](https://github.com/zhuanglaihong/dailyinfo) | 已有个人仓库 | 复用 `fba6001`；未改远端、未覆盖源码、未合并上游 |
+| [mylibrary](https://github.com/zhuanglaihong/mylibrary) | iHeadWater/mylibrary（旧 OuyangWenyu 地址已重定向） | 已复制 `6566421`，全部分支和标签 refs 已核对 |
+| [aisecretary](https://github.com/zhuanglaihong/aisecretary) | iHeadWater/aisecretary | 已复制 `c50997e`，全部分支和标签 refs 已核对 |
+| [everything-claude-code](https://github.com/zhuanglaihong/everything-claude-code) | affaan-m/everything-claude-code（重定向 ECC） | 已复制 `b92f181`，91 个分支/标签 refs 已核对；继承 Dockerfile 直接依赖 |
+| [yuque_mcp_server](https://github.com/zhuanglaihong/yuque_mcp_server) | 已有本地 GitCode checkout | 已复制提交 `b7fe24e`，保留原本地工作区；无法核对最新上游 |
+| `git-contribution-stats` | GitCode dlut-water；旧 GitHub 地址 404 | 未创建：HTTPS/SSH 无法连接，未取得源码 |
+| `zhixun-agent` | OuyangWenyu/zhixun-agent | 未创建：GitHub 404，需可访问来源；可选水文助手 |
+| `server-monitoring` | GitCode dlut-water/server-monitoring | 未创建：无法连接；上游按外部服务消费，可选 |
+| `paper-fetch` | Agents365-ai/paper-fetch | 未创建：GitHub 404；继承启动脚本会自动拉取此 skill |
+
+未创建项的个人 URL 在清单中仅代表计划目标，不能当作存在的仓库或可用功能。没有创建空仓库来代替真实源码。
+
+## 语雀兼容性缺口
+
+本地快照 `b7fe24e` 不含继承 compose 所需的根目录 Dockerfile，也不含上游守卫要求的 `bfc55d7d4a019859eb2cd30a040c52126895192a` 提交。本次仅保存可取得的内容，不修改 pin、不改测试阈值来掩盖差异。需要取得匹配源码，再审查版本和运行协议。
+
+原来的 `D:/project/Agent/yuque_mcp_server` 保留 GitCode origin；新个人副本可克隆到独立组件目录进行后续开发，避免修改用户已有工作区。
+
+## 已修改的对接位置
+
+依赖清单和克隆入口统一使用 `repositories.json` 与 `scripts/repositories.py`；私有组件使用个人 GitHub 地址。Hermes / Zotero MCP 的文献库 fallback、编码技能库构建来源、论文下载 skill 获取地址均指向个人命名空间；未取得的论文下载源仍为显式阻塞，未伪造可用性。
+
+历史上游文档中的原始出处、许可证和运行时 `myopenclaw` 标识保留。新 README、文档首页、项目元数据和部署入口使用 MySciAgent 名称。底层 Hermes/OpenClaw/Claude Code 与普通软件包、基础镜像仍从各自上游分发，不把所有第三方库复制成个人项目。
+
+## 当前验证边界
+
+仓库复制已验证 Git 提交与分支/标签一致。新增仓库已关闭继承 Actions，避免尚未配置的上游发布/自动化直接运行。部署所需的真实凭据和服务未启用；Windows 环境未发现 Docker CLI，因此没有容器构建或端到端模型调用结论。
+
+运行 `python scripts/repositories.py --check --json` 可复查实际本地源码就绪状态；该命令会诚实报告缺失依赖、远端不匹配及语雀版本差异。
+
+本次检查结果：
+
+| 检查 | 结果 |
+|---|---|
+| 个人仓库与 Git refs | 新建的 5 个仓库均可读取、私有；组件复制 refs/HEAD 已核对 |
+| 脚本与清单 | start.sh / clone-deps.sh 的 Bash 语法、repositories.py 的 Python 语法、9 项组件清单及个人地址通过 |
+| 文档构建 | `PYTHONUTF8=1 python -m mkdocs build --strict` 通过 |
+| 语雀兼容守卫 | `PYTHONUTF8=1 uv run --with pytest --with pyyaml python -m pytest tests/test_yuque_mcp_local.py -q`：18 passed、2 skipped、1 failed；唯一失败是本地旧版本与所需 pin 不一致，未掩盖 |
+| 部署与模型调用 | 未运行：依赖缺口尚在、当前环境无 Docker CLI |
+
+Windows 下继承测试使用默认编码读取 UTF-8 文件时会遇到 GBK 解码错误；设置 `PYTHONUTF8=1` 后完成上述验证。GitHub Actions 未执行本地检查；本地结果与 CI 状态分别记录。
+
+## 补齐依赖后的操作顺序
+
+1. 从可访问上游或用户提供的源码复制缺失仓库，核对 HEAD、历史、许可证和所需接口。
+2. 在 repositories.json 中更新可用状态和版本；重新执行源码检查。
+3. 根据本人实际应用、模型和服务器配置凭据；先启动最小服务集，再验证工具连接。
+4. 按 [科研平台规划](research-platform-roadmap.md) 的阶段 1 跑通第一条真实日常流程。

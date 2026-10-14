@@ -58,7 +58,7 @@ RUN mkdir -p /opt/claude-config /opt/gh-config /opt/cc-config /opt/gitcode-confi
 RUN mkdir -p /home/node/code && chown node:node /home/node/code
 
 # ── ECC seed（pre-seeded for first-run auto-install to volume）────
-RUN git clone --depth 1 https://github.com/affaan-m/everything-claude-code.git /opt/ecc-seed \
+RUN git clone --depth 1 https://github.com/zhuanglaihong/everything-claude-code.git /opt/ecc-seed \
     && cd /opt/ecc-seed && npm install --no-audit --no-fund --loglevel=error \
     && chown -R node:node /opt/ecc-seed
 

@@ -2,7 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## MySciAgent migration context
+
+This repository is MySciAgent, a personal multi-agent research collaboration platform based on myopenclaw. Read `repositories.json`, `docs/migration-status.md` and `docs/research-platform-roadmap.md` before changing integration or runtime configuration. The inherited stack is not validated as deployable: required sources are missing and the available Yuque snapshot is incompatible. Use owned component repos; preserve upstream provenance and component licenses. Research orchestration, Paper2Code and model routing are roadmap work, not implemented features.
+
+## Inherited Runtime Overview
 
 myopenclaw is a Docker-based deployment for running Hermes Agent (with opencode and gh CLI), Claude Code (with cc-connect for Feishu integration), and OpenClaw gateway, with automated cloud-backup snapshots and dailyinfo scheduling. All persistent data lives on the host (`~/.hermes`, `~/.openclaw`, `~/.myagentdata`, `~/.claude`, `~/.cc-connect`); this repo only holds configuration, Dockerfiles, and shell scripts.
 

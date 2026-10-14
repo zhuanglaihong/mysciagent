@@ -19,9 +19,9 @@ RUN if [ -f /tmp/mylibrary-src/hydrolitagent/zotero/server.py ]; then \
       echo "   📚 zotero-mcp: local source not found, cloning from GitHub" && \
       apt-get update && apt-get install -y --no-install-recommends git ca-certificates && \
       if [ -n "${GITHUB_TOKEN}" ]; then \
-        git clone --depth 1 "https://oauth2:${GITHUB_TOKEN}@github.com/OuyangWenyu/mylibrary.git" /tmp/mylibrary-git; \
+        git clone --depth 1 "https://oauth2:${GITHUB_TOKEN}@github.com/zhuanglaihong/mylibrary.git" /tmp/mylibrary-git; \
       else \
-        git clone --depth 1 https://github.com/OuyangWenyu/mylibrary.git /tmp/mylibrary-git; \
+        git clone --depth 1 https://github.com/zhuanglaihong/mylibrary.git /tmp/mylibrary-git; \
       fi && \
       cp /tmp/mylibrary-git/hydrolitagent/zotero/server.py /app/server.py && \
       apt-get purge -y git && rm -rf /var/lib/apt/lists/*; \

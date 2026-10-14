@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-14",
+  "owner": "zhuanglaihong",
+  "platform": {
+    "name": "mysciagent",
+    "owned_url": "https://github.com/zhuanglaihong/mysciagent.git",
+    "source_url": "https://github.com/OuyangWenyu/myopenclaw.git",
+    "source_commit": "2dccce2b9370c83eec8e5823ebdacf7e6cbcb00b",
+    "license": "BSD-3-Clause",
+    "visibility": "private"
+  },
+  "components": [
+    {
+      "name": "dailyinfo",
+      "source_url": "https://github.com/iHeadWater/dailyinfo.git",
+      "owned_url": "https://github.com/zhuanglaihong/dailyinfo.git",
+      "status": "existing_preserved",
+      "required_for_default_stack": false,
+      "snapshot_commit": "fba600100e2d3633e8ac3a53104463b976baba4f",
+      "license": "BSD-3-Clause",
+      "note": "Existing personal repository retained without pull, merge or force push."
+    },
+    {
+      "name": "mylibrary",
+      "source_url": "https://github.com/iHeadWater/mylibrary.git",
+      "owned_url": "https://github.com/zhuanglaihong/mylibrary.git",
+      "status": "copied_verified",
+      "required_for_default_stack": true,
+      "snapshot_commit": "65664218de1ee80623ab5bff4e378091dbb63f1b",
+      "license": "AGPL-3.0",
+      "note": "All source branches and tags verified against the owned copy."
+    },
+    {
+      "name": "aisecretary",
+      "source_url": "https://github.com/iHeadWater/aisecretary.git",
+      "owned_url": "https://github.com/zhuanglaihong/aisecretary.git",
+      "status": "copied_verified",
+      "required_for_default_stack": true,
+      "snapshot_commit": "c50997eccdf328781e281a343b40be2fea2e75ad",
+      "license": "CC-BY-NC-4.0",
+      "note": "All source branches and tags verified against the owned copy."
+    },
+    {
+      "name": "everything-claude-code",
+      "source_url": "https://github.com/affaan-m/everything-claude-code.git",
+      "owned_url": "https://github.com/zhuanglaihong/everything-claude-code.git",
+      "status": "copied_verified",
+      "required_for_default_stack": true,
+      "snapshot_commit": "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29",
+      "license": "MIT",
+      "note": "All source branches and tags verified against the owned copy."
+    },
+    {
+      "name": "yuque_mcp_server",
+      "source_url": "https://gitcode.com/dlut-water/yuque_mcp_server.git",
+      "owned_url": "https://github.com/zhuanglaihong/yuque_mcp_server.git",
+      "status": "local_snapshot",
+      "required_for_default_stack": true,
+      "snapshot_commit": "b7fe24e7da3ba092c28939668f1642f556455188",
+      "license": "not-found-in-local-snapshot",
+      "note": "Copied committed local snapshot only; upstream HEAD inaccessible. Snapshot lacks the Dockerfile and commit required by inherited runtime. Local checkout was not changed.",
+      "required_runtime_commit": "bfc55d7d4a019859eb2cd30a040c52126895192a"
+    },
+    {
+      "name": "git-contribution-stats",
+      "source_url": "https://gitcode.com/dlut-water/git-contribution-stats.git",
+      "owned_url": "https://github.com/zhuanglaihong/git-contribution-stats.git",
+      "status": "source_unavailable",
+      "required_for_default_stack": true,
+      "snapshot_commit": null,
+      "license": null,
+      "note": "GitCode HTTPS/SSH unavailable from current environment; outdated GitHub URL returns 404. No empty substitute repository created."
+    },
+    {
+      "name": "zhixun-agent",
+      "source_url": "https://github.com/OuyangWenyu/zhixun-agent.git",
+      "owned_url": "https://github.com/zhuanglaihong/zhixun-agent.git",
+      "status": "source_unavailable",
+      "required_for_default_stack": false,
+      "snapshot_commit": null,
+      "license": null,
+      "note": "GitHub API returns 404; optional water assistant requires an accessible source."
+    },
+    {
+      "name": "server-monitoring",
+      "source_url": "https://gitcode.com/dlut-water/server-monitoring.git",
+      "owned_url": "https://github.com/zhuanglaihong/server-monitoring.git",
+      "status": "source_unavailable",
+      "required_for_default_stack": false,
+      "snapshot_commit": null,
+      "license": null,
+      "note": "GitCode unavailable; optional external monitoring service, not a default build dependency."
+    },
+    {
+      "name": "paper-fetch",
+      "source_url": "https://github.com/Agents365-ai/paper-fetch.git",
+      "owned_url": "https://github.com/zhuanglaihong/paper-fetch.git",
+      "status": "source_unavailable",
+      "required_for_default_stack": true,
+      "snapshot_commit": null,
+      "license": null,
+      "note": "GitHub API returns 404. Inherited start.sh clones this skill when absent; source needed before full startup."
+    }
+  ],
+  "framework_policy": "Hermes, OpenClaw, Claude Code and ordinary package/image dependencies remain upstream distributions; direct business/skill source repositories are inventoried here."
+}

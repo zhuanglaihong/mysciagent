@@ -8,6 +8,13 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
+# MySciAgent source preflight: do not mutate runtime config with incomplete component sources.
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "Python 3.10+ is required for MySciAgent source checks." >&2
+  exit 2
+fi
+python3 "${SCRIPT_DIR}/repositories.py" --check --directory "${HOME}/code"
+
 # ── 检查 .env ────────────────────────────────────────────────
 if [[ ! -f "${REPO_ROOT}/.env" ]]; then
   echo "⚠️  .env 不存在，从模板创建..."
@@ -22,7 +29,7 @@ OPENCLAW_CONFIG="${HOME}/.openclaw/openclaw.json"
 # ── 检查 GH_TOKEN 是否设置（gh CLI / git 认证用）────────────
 if ! grep -q '^GH_TOKEN=.\+' "${REPO_ROOT}/.env" 2>/dev/null; then
   echo "   ⚠️  GH_TOKEN 未设置 — gh CLI 和 git clone 私有仓库将不可用"
-  echo "   在 .env 中设置 GH_TOKEN（OuyangWenyu 个人 GitHub 令牌）"
+  echo "   在 .env 中设置 GH_TOKEN（zhuanglaihong 的个人 GitHub 令牌）"
 fi
 
 # ── 检查 YUQUE_TOKEN 是否设置（本机语雀 MCP 服务端用）────────
@@ -292,7 +299,7 @@ install_paper_fetch() {
   if [[ -d "${skills_dir}/paper-fetch" ]]; then
     rm -rf "${skills_dir}/paper-fetch"
   fi
-  git clone https://github.com/Agents365-ai/paper-fetch.git "${skills_dir}/paper-fetch"
+  git clone https://github.com/zhuanglaihong/paper-fetch.git "${skills_dir}/paper-fetch"
   # Repo is a monorepo; move inner skill to root if needed
   if [[ -d "${skills_dir}/paper-fetch/skills/paper-fetch" ]]; then
     cp -r "${skills_dir}/paper-fetch/skills/paper-fetch/"* "${skills_dir}/paper-fetch/"

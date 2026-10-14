@@ -1,47 +1,62 @@
-# myopenclaw
+# MySciAgent
 
-个人多 Agent 协作平台，基于 Docker Compose 一键部署。
+**个人科研多智能体协作平台：连接已有应用与资源，贯通论文阅读、研究设计、Paper2Code、实验执行和成果整理。**
 
-## 这是什么
+基于 [OuyangWenyu/myopenclaw](https://github.com/OuyangWenyu/myopenclaw) 的源码和完整主分支历史继续开发。原始提交、作者和 BSD-3-Clause 许可证保留；上游 README 保存在 [docs/upstream/README.myopenclaw.md](https://github.com/zhuanglaihong/mysciagent/blob/main/docs/upstream/README.myopenclaw.md)。
 
-myopenclaw 用 Docker 运行三个 AI Agent 框架 — [Hermes Agent](https://github.com/NousResearch/hermes-agent)、[Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview)、[OpenClaw](https://github.com/openclaw/openclaw) — 并通过长期记忆、飞书/Discord 桥接、定时任务、文献管理、水文查询等将它们整合成一个多能力协作系统。
+## 当前阶段
 
-## 核心能力
+当前是**源码迁移与规划基线**。已经复制基础编排及可取得的组件源码、切换组件获取地址，并建立依赖清单。统一科研任务调度、分级模型协作、Paper2Code 和实验管理是后续目标，尚未实现。Docker/账号/模型未部署验证。
 
-- **多 Agent 协作**：Hermes ×4（爱玛士 / 爱码士 / 道元 / finance）+ Claude Code + OpenClaw ×3（虾酱 / 知汛 / 天一），各自负责不同领域
-- **跨 Agent 长期记忆**：TDAI Memory L0→L3 分层管线，飞书说的 Discord 能召回
-- **飞书 + Discord 双通道**：cc-connect（CC飞总）+ OpenClaw 虾酱 + 道元 bot + zhixun 知汛 bot + tianyi 天一 bot
-- **自动化工作流**：晨间四签、AI 情报聚合、研发日报、论文管线
-- **水文智能问答**：zhixun 知汛助手，独立 Compose 栈，飞书 bot 直达水库/河道/雨量/流域查询
-- **文献管理**：Zotero MCP 共享服务 + paper pipeline 论文下载入库 + Google Drive 云端存档
-- **通讯与邮件**：cardamum 联系人管理 + himalaya CLI 邮件客户端（Outlook 经 ortie OAuth）
-- **数据安全**：数据全在本机，配置 Git 管理，定时快照备份到云盘
+**完整启动目前有阻塞：** `git-contribution-stats`、`paper-fetch` 未取得；语雀副本是本地旧快照，缺少继承运行配置所需的 Dockerfile 与版本。`zhixun-agent`、`server-monitoring` 也是待补齐的可选组件。详见 [迁移状态](migration-status.md)。
 
-## 快速导航
+## 项目文档
 
-- [快速开始](setup.md) — 新机器从零到运行
-- [架构](architecture.md) — 服务拓扑、数据目录、安全边界
-- [可移植性](portability.md) — 换电脑需要准备什么
-- [Hermes 渠道](hermes-channels.md) — 飞书/钉钉/Discord 消息平台配置
-- [OpenClaw 渠道](openclaw-channels.md) — Discord/飞书渠道配置
-- [飞书 CLI](lark-cli.md) — lark-cli 飞书命令行工具
-- [TDAI 长期记忆](tdai-memory.md) — Agent 跨会话记忆系统
-- [zhixun 知汛助手](zhixun-feishu-bot.md) — 水文智能问答飞书机器人
-- [语雀知识库](yuque-mcp-hermes.md) — 本机 yuque-mcp 服务（Hermes/天一接入，含每日变更推送 yuque-daily-digest）
-- [服务器监控 MCP](server-monitoring-mcp.md) — 天一接入团队 server-monitoring（TLS + Bearer 只读；启用/回退/核对 CA）
-- [千问办公 AI听记](qwennote-mcp-hermes.md) — 爱玛士接入 QwenNote 听记 MCP（OAuth，仅默认 profile）
-- [调度系统](scheduling.md) — 全部定时任务总览与安装
-- [Hermes Skill 机制](hermes-skills.md) — live 执行源（原生副本）与仓库版本源的关系与接线现状
-- [备份系统](backup.md) — 快照备份与恢复
-- [服务监控](monitoring.md) — Uptime Kuma + Healthchecks.io
-- [AgentOps 健康采集](agentops.md) — 系统健康信号自动采集
-- [Zotero 文献系统](zotero-cli-cc.md) — Zotero MCP 共享服务（mylibrary 提供）+ paper pipeline + 道元文献 Agent
-- [论文清单](paper-queue.md) — 论文请求只记不下（独立 MCP 容器）
-- [AI 秘书](aisecretary.md) — 事务数据库 MCP 服务
-- [研发日报](daily-dev-report.md) — 35 仓库每日采集 + 飞书推送
-- [dailyinfo 调度](dailyinfo.md) — AI 情报聚合与定时推送
-- [Google Drive](google-drive-rclone.md) — rclone 论文上传配置
-- [通讯录](contacts.md) — cardamum CLI 联系人管理
-- [邮件](email.md) — himalaya CLI 邮件客户端
-- [DNS 配置](dns-setup.md) — 中国域名解析
-- [Linux 服务器部署](linux-server-setup.md) — Linux 环境配置指南
+| 文档 | 用途 |
+|---|---|
+| [科研平台建设规划](research-platform-roadmap.md) | 目的、科研环节、对接平台、Agent 分工、模型路由、Paper2Code、实验仓库及五阶段验收 |
+| [仓库迁移状态](migration-status.md) | 哪些已经复制、哪些复用、哪些无法取得，以及验证范围 |
+| [repositories.json](https://github.com/zhuanglaihong/mysciagent/blob/main/repositories.json) | 机器可读的个人仓库地址、上游来源、版本和依赖状态 |
+| [上游运行架构](architecture.md) | 继承的 Hermes / Claude Code / OpenClaw 与工具服务布局；不代表本机部署状态 |
+| [部署说明](setup.md) | 继承部署流程；先解决依赖阻塞再按此接入自己的配置 |
+
+## 仓库组织
+
+平台仓库是 `zhuanglaihong/mysciagent`。组件通过同级个人仓库独立维护，现有 `zhuanglaihong/dailyinfo` 直接复用，不覆盖其个人扩展。各科研课题及实验使用独立研究仓库，平台负责关联和调度。
+
+```text
+code/
+  mysciagent/              # 协调、应用接入、部署、文档
+  dailyinfo/               # 已有个人仓库
+  mylibrary/               # 已复制：文献工具与 Zotero MCP
+  aisecretary/             # 已复制：事务管理
+  yuque_mcp_server/        # 已复制旧快照，运行版本待补齐
+  everything-claude-code/  # 已复制：继承编码技能
+  # 其他依赖的来源与缺口见 repositories.json
+```
+
+主仓及本次新建的组件仓库均为私有仓库。原有运行时的 `myopenclaw/*` 镜像名、容器名和网络名暂时保留，以避免在源码迁移中改变部署协议；GitHub 源码归属已经独立。GitHub Pages 尚未配置，继承的 Actions 暂时关闭，后续配置好构建/发布目标后再开启。
+
+## 获取与检查组件
+
+```bash
+git clone https://github.com/zhuanglaihong/mysciagent.git
+cd mysciagent
+# Git 需要能读取个人私有仓库，可在本机先运行 gh auth setup-git
+python scripts/repositories.py
+python scripts/repositories.py --check --json
+```
+
+Linux/WSL 可使用 `./scripts/clone-deps.sh`。Windows 也可直接运行上述 Python 命令。脚本默认将组件克隆到主仓的同级目录，支持 `--directory <父目录>`；已有工作区不会 pull、reset 或改远端。当前若存在必需依赖缺口，退出码为 1，并明确列出阻塞。检查只判断源码，不会启动容器或访问模型。
+
+完整运行沿用 Linux/WSL + Docker 的上游方式，推荐目录 `~/code/mysciagent`。目前尚无原生 Windows 一键部署验证；上游若干运行路径仍使用 `~/code`。
+
+## 实现方向
+
+高能力模型负责研究思考、方案和关键审查；DeepSeek 等低成本模型负责按规格实现、执行测试和整理结果；工具提供真实运行证据。跨 Agent 使用结构化任务交接、共享课题记录和可追踪实验，而不是各自独立聊天。
+
+首条目标流程：**已有论文收藏 → 带来源的方法笔记 → 研究方案 → 独立代码工作区 → 小规模实验 → 结果分析 → 写回原笔记应用**。
+
+## 来源与许可证
+
+平台原始代码遵循根目录 [LICENSE](https://github.com/zhuanglaihong/mysciagent/blob/main/LICENSE)；组件各自保留上游许可证，不能统一视为平台的 BSD 许可。`mylibrary` 为 AGPL-3.0，`aisecretary` 的 LICENSE 为 CC-BY-NC-4.0，编码技能库为 MIT；语雀旧快照未找到 LICENSE，已在迁移记录标注。相关运行配置中的原作者身份、知识库、密文和远程服务不代表用户已取得对应账号访问能力。

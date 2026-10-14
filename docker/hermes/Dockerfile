@@ -118,9 +118,9 @@ RUN if [ -f /tmp/mylibrary-src/pyproject.toml ]; then \
       echo "   📚 mylibrary: local source not found, cloning from GitHub" && \
       apt-get update && apt-get install -y --no-install-recommends git ca-certificates && \
       if [ -n "${GITHUB_TOKEN}" ]; then \
-        git clone --depth 1 "https://oauth2:${GITHUB_TOKEN}@github.com/OuyangWenyu/mylibrary.git" /tmp/mylibrary-git; \
+        git clone --depth 1 "https://oauth2:${GITHUB_TOKEN}@github.com/zhuanglaihong/mylibrary.git" /tmp/mylibrary-git; \
       else \
-        git clone --depth 1 https://github.com/OuyangWenyu/mylibrary.git /tmp/mylibrary-git; \
+        git clone --depth 1 https://github.com/zhuanglaihong/mylibrary.git /tmp/mylibrary-git; \
       fi && \
       uv pip install --python /opt/hermes/.venv/bin/python3 --no-deps /tmp/mylibrary-git/ && \
       uv pip install --python /opt/hermes/.venv/bin/python3 graphifyy openai httpx pyzotero && \
