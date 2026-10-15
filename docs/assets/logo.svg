@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MySciAgent">
+  <rect width="64" height="64" rx="16" fill="#3f51b5"/>
+  <path d="M18 20 45 17M18 20 32 44M45 17 32 44" fill="none" stroke="#a7c8ff" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="18" cy="20" r="7" fill="#fff"/>
+  <circle cx="45" cy="17" r="6" fill="#fff"/>
+  <circle cx="32" cy="44" r="9" fill="#fff"/>
+</svg>

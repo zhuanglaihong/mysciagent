@@ -1,0 +1,76 @@
+/* MySciAgent: a small visual layer on top of Material's documentation UI. */
+:root {
+  --msa-radius: 14px;
+}
+.md-header__button.md-logo img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.md-typeset .msa-hero {
+  margin: 0 0 2rem;
+  padding: clamp(1.3rem, 4vw, 2.3rem);
+  border: 1px solid rgba(72, 92, 190, .16);
+  border-radius: var(--msa-radius);
+  background: linear-gradient(125deg, rgba(63, 81, 181, .09), rgba(30, 140, 180, .035));
+}
+.md-typeset .msa-eyebrow {
+  display: inline-block;
+  color: var(--md-primary-fg-color);
+  font-size: .69rem;
+  font-weight: 700;
+  letter-spacing: .055em;
+}
+.md-typeset .msa-hero h1 {
+  margin: .55rem 0 .35rem;
+  color: var(--md-default-fg-color);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+.md-typeset .msa-lead p {
+  margin: .6rem 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.md-typeset .msa-hero > p {
+  max-width: 40rem;
+  line-height: 1.85;
+}
+.md-typeset .msa-hero .md-button {
+  margin: .5rem .3rem 0 0;
+  padding: .48em 1em;
+  border-radius: 8px;
+  font-size: .76rem;
+}
+.md-typeset .grid.cards > ul > li {
+  border-radius: var(--msa-radius);
+  padding: 1.05rem;
+}
+.md-typeset .grid.cards > ul > li > p:first-child {
+  margin-top: 0;
+  font-size: .9rem;
+}
+.md-typeset .grid.cards > ul > li > p:last-child {
+  margin-bottom: 0;
+}
+.md-typeset h2 {
+  font-weight: 650;
+}
+[data-md-color-scheme="slate"] .md-typeset .msa-hero {
+  border-color: rgba(150, 165, 240, .2);
+  background: linear-gradient(125deg, rgba(100, 125, 240, .14), rgba(40, 175, 195, .035));
+}
+[data-md-color-scheme="slate"] .md-typeset .msa-eyebrow {
+  color: #b3c1ff;
+}
+@media (max-width: 44.99em) {
+  .md-typeset .msa-hero {
+    padding: 1.2rem;
+  }
+  .md-typeset .msa-hero .md-button {
+    display: inline-block;
+    margin-right: .2rem;
+  }
+}

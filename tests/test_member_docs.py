@@ -190,7 +190,7 @@ class TestServerDeployPage:
 class TestReadmeRouting:
     def test_has_reader_routing_section(self):
         text = README.read_text(encoding="utf-8")
-        assert "我该从哪开始" in text, "README 需要读者路由段（成员→天一 / 部署服务器 / 部署个人栈）"
+        assert re.search(r"^## (?:我该从哪开始|快速开始)$", text, re.M), "README 需要明确的使用入口"
 
     def test_member_path_points_to_tianyi(self):
         text = README.read_text(encoding="utf-8")
