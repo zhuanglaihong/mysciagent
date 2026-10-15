@@ -4,31 +4,18 @@
 
 <p align="center">
   <a href="https://python.org/"><img alt="Python 3.12+" src="https://img.shields.io/badge/Python-3.12%2B-3776AB?style=for-the-badge&amp;logo=python&amp;logoColor=white"></a>
-  <a href="docs/linux-delivery-plan.md"><img alt="Linux Server" src="https://img.shields.io/badge/Linux-Server-FCC624?style=for-the-badge&amp;logo=linux&amp;logoColor=black"></a>
+  <a href="docs/setup.md"><img alt="Linux Server" src="https://img.shields.io/badge/Linux-Server-FCC624?style=for-the-badge&amp;logo=linux&amp;logoColor=black"></a>
   <a href="docs/architecture.md"><img alt="Multi Agent" src="https://img.shields.io/badge/Agents-Hermes%20%2B%20OpenClaw%20%2B%20Claude%20Code-7C3AED?style=for-the-badge"></a>
   <a href="https://github.com/zhuanglaihong/mysciagent/blob/main/LICENSE"><img alt="License BSD 3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-22C55E?style=for-the-badge"></a>
-  <a href="https://github.com/OuyangWenyu/myopenclaw"><img alt="Based on myopenclaw" src="https://img.shields.io/badge/Based%20on-myopenclaw-475569?style=for-the-badge&amp;logo=github"></a>
 </p>
 
 MySciAgent 面向研究生和科研工作者，将论文、笔记、代码、实验和日常待办连接到一个助手。你可以从熟悉的对话入口下达任务，让专业 Agent 协作处理资料整理、科研编程、实验跟进和日常事务。
 
-当论文散落在文献库、研究结论留在笔记里、代码与实验运行在服务器上时，MySciAgent 希望帮你把这些资源串起来，减少切换应用和重复整理，把每次研究的过程与成果持续积累下来。
-
-**当前进度：** 基础能力继承自 myopenclaw；统一科研调度、自动实验和 Paper2Code 正在建设。各项能力的源码与部署就绪状态见 [迁移记录](docs/migration-status.md)，首次部署请先看 [Linux 落地计划](docs/linux-delivery-plan.md)。
-
-| 项目入口 | 内容 |
-|---|---|
-| [科研助手建设规划](docs/research-platform-roadmap.md) | 使用场景、现有资源、科研环节与分阶段目标 |
-| [研究引擎接入](docs/research-engine-integration.md) | 模型分工、实验记录、Paper2Code 与方法复用 |
-| [AI Scientist 调研](docs/ai-scientist-landscape.md) | Karpathy、AlphaEvolve 等工作的机制与取舍 |
-| [同步上游与查看更新](docs/upstream-sync.md) | 自己持续开发时，如何查看两边差异并同步 myopenclaw |
-| [组件仓库清单](repositories.json) | 个人仓库地址、来源和版本；缺失组件不等于已经可用 |
-
-基于 [OuyangWenyu/myopenclaw](https://github.com/OuyangWenyu/myopenclaw) 继续开发，保留原始作者、历史与 BSD-3-Clause 许可证。以下完整继承其基础功能和使用说明；主仓克隆入口及已复制组件的链接已调整为个人仓库。其他来源链接保留用于追溯，实际获取状态以组件清单为准。
+当论文散落在文献库、研究结论留在笔记里、代码与实验运行在服务器上时，MySciAgent 围绕你已有的工具和工作环境串联科研流程，减少切换应用和重复整理，让研究过程与成果持续积累。
 
 ---
 
-## 继承的 myopenclaw 基础功能与使用说明
+## 功能概览
 
 个人操作系统——实用Agents管理。Docker Compose 一键部署，整合 Hermes、Claude Code、OpenClaw 三个 AI Agent 框架，配合长期记忆、飞书/Discord 桥接、晨间四签、论文管线、水文智能问答等能力。数据留在本机，配置用 Git 管理，定期快照备份到云盘。
 
@@ -57,7 +44,7 @@ MySciAgent 面向研究生和科研工作者，将论文、笔记、代码、实
 | 晨间四签 | Hermes cron skill → TDAI/AgentOps/语雀 MCP 等信号 → 飞书推送 | — |
 | AI 情报聚合 | dailyinfo 多源抓取 + AI 摘要 → 飞书 / Discord 推送 | [dailyinfo](https://github.com/zhuanglaihong/dailyinfo) |
 | 🌐 研发日报 | repo-scanner MCP 采集 35 仓库 → Hermes skill → 飞书推送；天一 bot 复用同源读能力（团队服务，服务器部署见 [server-deploy](docs/server-deploy.md)） | [git-contribution-stats](https://gitcode.com/dlut-water/git-contribution-stats) |
-| 🌐 水文智能问答 | zhixun 知汛助手 — OpenClaw + zhixun-water-mcp → 飞书 bot（**团队公共 bot**；背后的 zhixun-agent 水文 MCP 即**团队服务**；独立栈；服务器侧部署清单待补，见 [server-deploy](docs/server-deploy.md)） | [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent) |
+| 🌐 水文智能问答 | zhixun 知汛助手 — OpenClaw + zhixun-water-mcp → 飞书 bot（**团队公共 bot**；背后的 zhixun-agent 水文 MCP 即**团队服务**；独立栈，见 [server-deploy](docs/server-deploy.md)） | [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent) |
 | 论文管线 | paper-fetch 下载 → Google Drive 上传 → Zotero 入库 | — |
 | 事务追踪 | aisecretary MCP 服务 → SQLite 持久化 | [aisecretary](https://github.com/zhuanglaihong/aisecretary) |
 | 邮件 | himalaya CLI 邮件客户端（IMAP/SMTP 多账户；Outlook 走 ortie OAuth；仅爱玛士可用，其余 agent 拒绝访问） | — |
@@ -123,7 +110,7 @@ cp .cloud.conf.example .cloud.conf
 ./scripts/start.sh
 ```
 
-首次启动自动完成：配置模板创建、API Key 物化、skill 安装。详见 [快速开始指南](https://ouyangwenyu.github.io/myopenclaw/setup/)。
+首次启动自动完成：配置模板创建、API Key 物化、skill 安装。详见 [快速开始指南](docs/setup.md)。
 
 镜像变更后需重新构建：
 
@@ -173,7 +160,7 @@ cp .env.tianyi-bot.example .env.tianyi-bot  # 编辑填入飞书 App ID/Secret +
 ## 目录结构
 
 ```
-myopenclaw/
+mysciagent/
 ├── docker-compose.yml                # 主栈服务编排
 ├── docker-compose.zhixun-bot.yml     # zhixun 独立栈
 ├── docker-compose.tianyi-bot.yml     # tianyi 独立栈（共享主栈网络）
@@ -205,20 +192,15 @@ myopenclaw/
 
 ## 文档
 
-完整文档 → **[ouyangwenyu.github.io/myopenclaw](https://ouyangwenyu.github.io/myopenclaw)**
+完整文档 → **[文档目录](docs/index.md)**
 
-- [部署到服务器时要看什么](https://ouyangwenyu.github.io/myopenclaw/server-deploy/) — 服务器侧（天一/知汛两个公共 bot + 团队服务）vs 个人栈（hermes 等）的分界
-- [member-check 自检](https://ouyangwenyu.github.io/myopenclaw/member-check/) — 成员直连三项团队能力的连通 + 鉴权自检
-- [快速开始](https://ouyangwenyu.github.io/myopenclaw/setup/) — 新机器从零到运行
-- [架构](https://ouyangwenyu.github.io/myopenclaw/architecture/) — 服务拓扑、数据目录、安全边界
-- [服务](https://ouyangwenyu.github.io/myopenclaw/hermes-channels/) — Hermes / OpenClaw 渠道、邮件、联系人、飞书 CLI
-- [集成](https://ouyangwenyu.github.io/myopenclaw/dailyinfo/) — dailyinfo 调度、研发日报、zhixun 飞书机器人
-- [运维](https://ouyangwenyu.github.io/myopenclaw/scheduling/) — 调度、备份、监控、AgentOps、DNS
-- [Hermes Skill 机制](https://ouyangwenyu.github.io/myopenclaw/hermes-skills/) — live 执行源（原生副本）与仓库版本源的关系、接线现状与治理待决
-- [可移植性](https://ouyangwenyu.github.io/myopenclaw/portability/) — 换电脑需要准备什么
-- [备份系统](https://ouyangwenyu.github.io/myopenclaw/backup/) — 备份内容、恢复流程
-- [语雀知识库接入](https://ouyangwenyu.github.io/myopenclaw/yuque-mcp-hermes/) — Hermes 接入本机语雀 MCP 服务（含每日变更推送 yuque-daily-digest）
-- [服务器监控 MCP](https://ouyangwenyu.github.io/myopenclaw/server-monitoring-mcp/) — 天一接入团队 server-monitoring（只读监控：服务器/容器/GFS；启用、回退与核对 CA）
+| 主题 | 阅读入口 |
+|---|---|
+| 安装与部署 | [快速开始](docs/setup.md) · [服务器部署](docs/server-deploy.md) · [成员接入自检](docs/member-check.md) · [迁移到新电脑](docs/portability.md) |
+| 架构与 Agent | [架构](docs/architecture.md) · [Hermes 渠道](docs/hermes-channels.md) · [Skill 机制](docs/hermes-skills.md) |
+| 工具与数据接入 | [AI 情报聚合](docs/dailyinfo.md) · [语雀知识库](docs/yuque-mcp-hermes.md) · [服务器监控 MCP](docs/server-monitoring-mcp.md) · [组件仓库清单](repositories.json) |
+| 日常运维 | [任务调度](docs/scheduling.md) · [备份与恢复](docs/backup.md) · [版本同步](docs/upstream-sync.md) |
+| 设计与规划 | [科研助手规划](docs/research-platform-roadmap.md) · [研究引擎接入](docs/research-engine-integration.md) · [AI Scientist 调研](docs/ai-scientist-landscape.md) |
 
 本地预览文档：
 
@@ -226,3 +208,21 @@ myopenclaw/
 uv sync --group docs
 uv run mkdocs serve
 ```
+
+---
+
+<a id="author"></a>
+
+## 👤 作者 & 团队
+
+**[庄赖宏 · zhuanglaihong](https://github.com/zhuanglaihong)** · iHeadWater
+
+**大连理工大学 · 水资源与防洪研究所产学研联合团队**
+
+MySciAgent 围绕团队日常科研中实际涉及的流程与环境设计，将文献阅读、知识积累、科研编程、模型实验、结果整理和日常事务串联起来。论文库、笔记、代码仓库、服务器和沟通工具各有用途，本项目的出发点，就是让 AI 助手融入这些已有资源，在真实的科研任务中协作，减少重复操作，让研究经验与成果得到持续沉淀。
+
+团队项目 **[myopenclaw](https://github.com/OuyangWenyu/myopenclaw)** 面向团队成员，提供 Agent 管理、公共助手和科研工具接入。**MySciAgent 是我在其基础上开发和维护的个人项目**，结合自己的科研需求与工作习惯，打造开箱即用的 AI 科研助手与个人秘书。
+
+本项目保留上游代码的原始作者署名与贡献历史，遵循 [BSD-3-Clause 许可证](LICENSE)。
+
+> 🔗 团队主页：[gitcode.com/dlut-water](https://gitcode.com/dlut-water) · [github.com/iHeadWater](https://github.com/iHeadWater)
