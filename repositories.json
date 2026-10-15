@@ -8,7 +8,9 @@
     "source_url": "https://github.com/OuyangWenyu/myopenclaw.git",
     "source_commit": "2dccce2b9370c83eec8e5823ebdacf7e6cbcb00b",
     "license": "BSD-3-Clause",
-    "visibility": "private"
+    "visibility": "private",
+    "upstream_synced_commit": "1948e9826372c45941b6673e41b4763e32772bf6",
+    "upstream_synced_date": "2026-10-15"
   },
   "components": [
     {
@@ -74,13 +76,13 @@
     },
     {
       "name": "zhixun-agent",
-      "source_url": "https://github.com/OuyangWenyu/zhixun-agent.git",
+      "source_url": "https://gitcode.com/dlut-water/zhixun-agent.git",
       "owned_url": "https://github.com/zhuanglaihong/zhixun-agent.git",
       "status": "source_unavailable",
       "required_for_default_stack": false,
       "snapshot_commit": null,
       "license": null,
-      "note": "GitHub API returns 404; optional water assistant requires an accessible source."
+      "note": "Upstream corrected GitHub dead link to GitCode on 2026-10-15; source not acquired. Optional team-side water MCP."
     },
     {
       "name": "server-monitoring",

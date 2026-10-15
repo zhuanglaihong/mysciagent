@@ -210,3 +210,7 @@ docker compose logs -f hermes             # 查看 Hermes 日志
 docker compose logs -f claude-code        # 查看 Claude Code 日志
 docker compose exec backup-cron /scripts/backup-all-docker.sh  # 手动备份
 ```
+
+## 可选水文服务的来源
+
+上游已将 zhixun-agent 地址更正为 https://gitcode.com/dlut-water/zhixun-agent 。这是团队服务，当前个人副本仍待取得源码；先按 [Linux 落地计划](linux-delivery-plan.md) 建设个人科研流程。

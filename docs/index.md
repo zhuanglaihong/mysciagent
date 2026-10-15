@@ -4,6 +4,26 @@
 
 基于 [OuyangWenyu/myopenclaw](https://github.com/OuyangWenyu/myopenclaw) 的源码和完整主分支历史继续开发。原始提交、作者和 BSD-3-Clause 许可证保留；上游 README 保存在 [docs/upstream/README.myopenclaw.md](https://github.com/zhuanglaihong/mysciagent/blob/main/docs/upstream/README.myopenclaw.md)。
 
+## 我该从哪开始
+
+| 目标 | 入口 |
+|---|---|
+| 在自己的 Linux 服务器落地科研助手 | [Linux 落地计划](linux-delivery-plan.md) |
+| 了解多模型、实验和 Paper2Code 的实现次序 | [研究引擎接入](research-engine-integration.md) |
+| 可选团队服务与天一 / 知汛公共 bot | [继承的团队部署说明](server-deploy.md)、[接入自检](member-check.md)；需要配置自己的或获授权的服务 |
+
+## 能力地图
+
+下表的 🌐 表示继承的团队侧能力，首版个人科研流程按需启用，未配置不代表已运行。
+
+| 能力 | 在 MySciAgent 中的定位 |
+|---|---|
+| 科研任务、论文复现、实验管理 | 规划中的科研流程；实际运行验收见 Linux 落地计划 |
+| 🌐 研发日报 | 可选仓库统计工具，未取得源码时可用 Git 接口替代 |
+| 🌐 水文智能问答 | 可选团队服务，源项目 [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent)；个人副本待取得源码 |
+| 🌐 语雀知识库 | 使用个人组件或获授权端点，部署与写回能力需验证 |
+| 🌐 服务器监控 | 可选团队服务；实验状态由实际执行器记录 |
+
 ## 当前阶段
 
 当前是**源码迁移与规划基线**。已经复制基础编排及可取得的组件源码、切换组件获取地址，并建立依赖清单。统一科研任务调度、分级模型协作、Paper2Code 和实验管理是后续目标，尚未实现。Docker/账号/模型未部署验证。
@@ -34,6 +54,7 @@ code/
   aisecretary/             # 已复制：事务管理
   yuque_mcp_server/        # 已复制旧快照，运行版本待补齐
   everything-claude-code/  # 已复制：继承编码技能
+  zhixun-agent/            # 可选团队服务（水文 MCP），源码待补齐
   # 其他依赖的来源与缺口见 repositories.json
 ```
 
