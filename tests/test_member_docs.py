@@ -35,6 +35,7 @@ DOCS_DIR = REPO_ROOT / "docs"
 INDEX_MD = DOCS_DIR / "index.md"
 SERVER_DEPLOY_MD = DOCS_DIR / "server-deploy.md"
 README = REPO_ROOT / "README.md"
+TEAM_CASES_MD = DOCS_DIR / "team-use-cases.md"
 
 # 凭据样式串（出现即泄露事故）—— ACCESS.md 是**公开仓库**里的文件（虽然进的是天一容器）
 SECRET_PATTERNS = [
@@ -334,7 +335,7 @@ class TestTeamSidePositioning:
         assert self._banned_hit(line) is not None, f"禁词词形漏网: {form!r}"
 
     def test_team_services_include_water_mcp(self):
-        """zhixun-agent（水文 MCP）必须在两处被写成团队服务：server-deploy 与 README 仓库配合。"""
+        """团队部署与案例组件清单都应明确水文 MCP 的团队服务定位。"""
         sd_lines = self._lines(SERVER_DEPLOY_MD)
         # ① 两条线对比表的「组成」行必须点名水文（列名按正则匹配，容忍空格变化）
         compose_row = next(
@@ -348,14 +349,14 @@ class TestTeamSidePositioning:
             "zhixun-agent" in line and "团队服务" in line
             for _, line in sd_lines
         ), "server-deploy 应有一行写明「zhixun-agent … 团队服务」（水文 MCP 是能力层，不是 bot 的附属品）"
-        # ③ README 仓库配合：zhixun-agent/ 行标注团队服务（而非纯构建依赖）
-        readme_zhixun = [
-            line for _, line in self._lines(README) if line.lstrip().startswith("zhixun-agent/")
+        # ③ 具体组件清单移入团队案例，通用 README 只保留应用概览。
+        case_zhixun = [
+            line for _, line in self._lines(TEAM_CASES_MD) if line.lstrip().startswith("zhixun-agent/")
         ]
-        assert readme_zhixun, "README 仓库配合缺 zhixun-agent 行"
+        assert case_zhixun, "团队案例组件清单缺 zhixun-agent 行"
         assert any(
-            "团队服务" in line for line in readme_zhixun
-        ), f"README 仓库配合的 zhixun-agent 行未标注团队服务: {readme_zhixun[0][:100]}"
+            "团队服务" in line for line in case_zhixun
+        ), f"团队案例的 zhixun-agent 行未标注团队服务: {case_zhixun[0][:100]}"
 
     def test_zhixun_doc_declares_team_positioning(self):
         """知汛文档的团队侧定位段必须真实存在（钉标题本身——只断言『团队』二字的话
@@ -380,7 +381,7 @@ class TestTeamSidePositioning:
                 f"{path.relative_to(REPO_ROOT)} 用了不存在的 GitHub zhixun-agent 地址"
                 "——应为 gitcode.com/dlut-water/zhixun-agent"
             )
-        for path in (README, DOCS_DIR / "setup.md", DOCS_DIR / "portability.md"):
+        for path in (TEAM_CASES_MD, DOCS_DIR / "setup.md", DOCS_DIR / "portability.md"):
             assert "gitcode.com/dlut-water/zhixun-agent" in path.read_text(encoding="utf-8"), (
                 f"{path.relative_to(REPO_ROOT)} 缺 zhixun-agent 的 GitCode 地址"
             )
@@ -398,11 +399,10 @@ class TestTeamSidePositioning:
         assert "不在本清单" in mc_text, "member-check 文档应显式排除水文（不在本清单）"
 
     def test_capability_map_marks_team_capabilities(self):
-        """能力地图里四项团队能力必须带 🌐（图例：🌐 = 团队侧能力）——
-        否则读者按 🌐 扫只见部分，误判团队能力全集。只查能力地图段内，避开服务一览表。"""
-        text = README.read_text(encoding="utf-8")
-        m = re.search(r"## 能力地图.*?(?=\n## )", text, re.S)
-        assert m, "README 缺能力地图段"
+        """团队案例中的四项服务仍须完整标注，具体能力不再绑定通用 README。"""
+        text = TEAM_CASES_MD.read_text(encoding="utf-8")
+        m = re.search(r"## 团队能力地图.*?(?=\n## )", text, re.S)
+        assert m, "团队案例缺能力地图段"
         section = m.group(0)
         for label in self.TEAM_CAPABILITY_LABELS:
             row = next(

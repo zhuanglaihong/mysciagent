@@ -1,20 +1,20 @@
 # 可移植性
 
-换台电脑拉起 myopenclaw 需要哪些准备？本页列出所有外部依赖和已知限制。
+把自己的科研助手迁移到新电脑或 Linux 服务器时，需要核对模型、账号、资料路径、工具组件与持久化数据。先用 [个人接入指南](personalize.md) 明确自己的资源，再按 [快速开始](setup.md) 部署；团队特有的服务见 [应用案例](team-use-cases.md)。
 
 ## 依赖图
 
 ```
-myopenclaw (本仓库)
+mysciagent (本仓库)
 │
-├── [必须] Docker Desktop
+├── [必须] Docker Engine + Compose，或 Docker Desktop
 │
-├── [可选·硬依赖·build 时需要]
+├── [默认主栈源码依赖·启动前预检]
 │   ├── ~/code/aisecretary/          ← build context for aisecretary 服务
 │   ├── ~/code/git-contribution-stats/ ← build context for repo-scanner-mcp
 │   ├── ~/code/yuque_mcp_server/     ← build context for 本机语雀 MCP 服务（无 tag，按 commit pin）
 │   ├── ~/code/mylibrary/            ← 论文流水线代码（缺失时 build 从 GitHub clone）
-│   └── ../zhixun-agent/             ← zhixun 栈 MCP 镜像的额外 build context
+│   └── ../zhixun-agent/             ← 团队案例独立栈的可选 build context
 │
 ├── [可选·软依赖·运行时 graceful skip]
 │   └── ~/code/dailyinfo/            ← 宿主机 launchd 调度（每日论文/资讯抓取推送）
@@ -33,17 +33,17 @@ myopenclaw (本仓库)
 
 ## 硬依赖：build 时需要的仓库
 
-这些仓库的 **build context 在 myopenclaw 仓库外**（`docker-compose.yml` / `docker-compose.zhixun-bot.yml` 里写的是 `../xxx`）。`docker compose build` 时需要它们存在于指定路径：
+部分服务的构建上下文位于主仓库之外。默认启动脚本还会先读取 `repositories.json`，检查 `~/code` 下的默认主栈组件，即使已有镜像也必须通过该检查。下表列出主要的服务源码路径；完整清单还包含编码技能与论文下载组件，以清单和预检结果为准。
 
 | 仓库 | 期望路径 | 用途 |
 |------|----------|------|
 | [aisecretary](https://github.com/iHeadWater/aisecretary) | `~/code/aisecretary` | aisecretary MCP 服务镜像构建 |
 | [git-contribution-stats](https://gitcode.com/dlut-water/git-contribution-stats) | `~/code/git-contribution-stats` | repo-scanner-mcp 镜像构建 |
 | [yuque_mcp_server](https://gitcode.com/dlut-water/yuque_mcp_server) | `~/code/yuque_mcp_server` | 本机语雀 MCP 服务（yuque-mcp）镜像构建。上游**无 tag**，镜像按 commit pin（守卫 `tests/test_yuque_mcp_local.py`）；升级 = 审查 diff 后改 pin + 重建 |
-| [mylibrary](https://github.com/OuyangWenyu/mylibrary) | `~/code/mylibrary` | hermes / zotero-mcp 镜像里的论文流水线（hydrolitagent + skills）。`start.sh` 先 rsync 进 build context；**本地没有时 Dockerfile 自动从 GitHub clone**，不会 build 失败 |
+| [mylibrary](https://github.com/zhuanglaihong/mylibrary) | `~/code/mylibrary` | hermes / zotero-mcp 镜像里的论文流水线（hydrolitagent + skills）。`start.sh` 先 rsync 进 build context；Dockerfile 有 Git fallback，但默认启动前仍须满足源码预检与仓库访问条件 |
 | [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent) | `../zhixun-agent` | zhixun 栈 `zhixun-water-mcp` 镜像的 `additional_contexts.zhixun_src`（可用 `ZHIXUN_AGENT_PATH` 覆盖）。只有启动 zhixun 栈时才需要 |
 
-**不需要 build 的情况**（`./scripts/start.sh` 不加 `--build`）：使用已有的 Docker 镜像即可，aisecretary / git-contribution-stats / yuque_mcp_server 这些仓库不需要存在。
+**已有镜像时也要预检：** `./scripts/start.sh` 不加 `--build` 仍会检查默认主栈源码。缓存镜像不会跳过缺失组件或版本检查。知汛独立栈的源码另按对应部署说明准备。
 
 ## 软依赖：运行时 graceful skip
 
@@ -59,9 +59,14 @@ myopenclaw (本仓库)
 ./scripts/clone-deps.sh
 ```
 
-此脚本克隆 aisecretary / git-contribution-stats / yuque_mcp_server / dailyinfo 四个仓库到正确路径。GitHub 私有仓库需要 `gh auth login` 先；yuque_mcp_server 在 GitCode 且公开，免认证。
+脚本读取 `repositories.json`，克隆其中可取得的个人组件副本；已有工作区保持原样。它默认把组件放在本仓库的同级目录，默认启动脚本则检查 `~/code`。建议把主仓库也放在 `~/code`；否则显式指定组件目录：
 
-`mylibrary` 与 `zhixun-agent` **不在**这个脚本里：前者缺失时 build 会自动从 GitHub clone；后者按需手动 clone（见[快速开始](setup.md)第 3 步）。
+```bash
+CODE_DIR="$HOME/code" ./scripts/clone-deps.sh
+python3 scripts/repositories.py --check --directory "$HOME/code"
+```
+
+仓库权限、来源和版本必须匹配检查要求；`source_unavailable` 不会被自动变成可用组件。知汛的 [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent) 属于独立的团队领域案例，见 [团队应用](team-use-cases.md)。
 
 ## 配置文件的机器差异
 
@@ -100,7 +105,7 @@ myopenclaw (本仓库)
 
 ## 不在本仓库管理的内容
 
-以下内容由各自的仓库独立管理，myopenclaw 只负责引用：
+以下内容由各自的仓库独立管理，MySciAgent 负责按所用能力连接：
 
 - dailyinfo 的 secret、数据源、业务逻辑 → dailyinfo 仓
 - git-contribution-stats 的采集逻辑、SQLite schema → git-contribution-stats 仓

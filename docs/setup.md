@@ -1,216 +1,113 @@
 # 快速开始
 
-> MySciAgent 迁移基线：请先阅读 [迁移状态](migration-status.md)。以下运行说明继承自上游；缺失组件和语雀版本问题解决前，不代表本项目已可部署。
+按下面五步准备自己的模型、资料和工具，部署 MySciAgent 的完整容器主栈。希望复用现有 Agent 工具的读者，可先阅读 [个人接入指南](personalize.md)，再选择所需接入。
 
-从零到运行 myopenclaw 的完整流程。
+天一、知汛与水文服务的具体配置归入 [团队应用案例](team-use-cases.md)。个人部署使用自己的机器人身份、仓库、知识库和资料路径。
 
-## 前置要求
+## 1. 准备运行环境
 
-- Docker Desktop 已安装并运行
-- 云盘客户端（Google Drive / OneDrive）已登录并完成本地同步（可选，用于备份）
+| 项目 | 要求 |
+|---|---|
+| 容器环境 | Linux 的 Docker Engine + Compose 插件，或已运行的 Docker Desktop；使用 Bash 执行脚本 |
+| Python 与 Git | 项目环境使用 Python 3.12+；需要 `python3`、Git，以及所需组件仓库的读取权限 |
+| 模型 | 默认配置使用 `DEEPSEEK_API_KEY`；使用其他服务时，同时调整对应 Agent 的模型端点与配置 |
+| 交互入口 | 选择自己常用的终端、飞书或 Discord；消息渠道需要自己的应用或频道凭据 |
+| 科研资源 | 准备自己的代码仓库、资料目录和希望启用的工具；云盘账号用于可选的附件同步或备份 |
 
-## 1. 克隆仓库
+项目不收取平台使用费；模型 API、计算资源及第三方服务按你的选择计费。Linux 上的系统调度与 macOS 的 launchd 配置分别见 [调度系统](scheduling.md)。
+
+## 2. 获取项目并填写自己的配置
 
 ```bash
+mkdir -p ~/code
+cd ~/code
 git clone https://github.com/zhuanglaihong/mysciagent.git
 cd mysciagent
-```
-
-## 2. 配置环境变量
-
-```bash
 cp .env.example .env
 ```
 
-`.env` 中需要填写的项目：
+`.env.example` 包含具体应用场景的示例值，复制后按自己的资源修改：
 
-| 变量 | 必填？ | 说明 |
-|------|--------|------|
-| `DEEPSEEK_API_KEY` | **推荐** | DeepSeek API Key，Claude Code 和 OpenClaw 默认模型使用 |
-| `XIAOMI_API_KEY` | 可选 | 小米 MiMo API Key，**仅**虾酱的 TTS 语音回复用（`mimo-v2.5-tts`）；不填则该能力不可用，其余 agent 已不依赖 |
-| `GLM_API_KEY` | 可选 | 智谱 API Key，Hermes 备用模型 |
-| `CC_CONNECT_FEISHU_APP_ID` / `SECRET` | 可选 | cc-connect 飞书应用凭证 |
-| `GH_TOKEN` | 可选 | GitHub PAT，gh CLI 认证用 |
-| `OPENCODE_API_KEY` | 可选 | opencode 专用 Key |
-| `MOONSHOT_API_KEY` | 可选 | Moonshot API Key，OpenClaw 备份模型 |
-| `UNPAYWALL_EMAIL` | 可选 | Unpaywall 联系邮箱 |
-| `LARK_CLI_APP_ID` / `SECRET` | 可选 | lark-cli 主应用 |
-| `LARK_CLI_IDM_APP_ID` / `SECRET` | 可选 | lark-cli 第二 profile |
-| `DISCORD_BOT_TOKEN` | 可选 | Hermes coder Discord Bot Token |
-| `DAOYUAN_FEISHU_APP_ID` / `SECRET` | 可选 | 道元·文献学者 飞书应用凭证 |
-| `FINANCE_FEISHU_APP_ID` / `SECRET` | 可选 | Finance 飞书应用凭证 |
-| `CODER_FEISHU_APP_ID` / `SECRET` | 可选 | 爱码士（hermes-coder）独立飞书应用凭证（可与 `LARK_CLI_IDM_*` 同值） |
-| `UPK_USER` / `UPK_PASS` | 可选 | Uptime Kuma 账号占位（模板里有，但 `setup-uptime-kuma.sh` 不读取；实际账号在 Web UI 创建） |
-| `YUQUE_TOKEN` | 可选 | 语雀只读 token（`repo:read` + `doc:read`），本机 `yuque-mcp` 服务端用；不填则语雀查询与变更日报不可用（`start.sh` 会警告） |
-| `MCP_YUQUE_MCP_API_KEY` | 可选 | yuque-mcp 访问 key（服务端与 Hermes/天一客户端共享的单一来源）；配 `YUQUE_MCP_URL` 后才会注册语雀日报 cron |
+| 配置范围 | 需要填写或核对的内容 |
+|---|---|
+| 模型 | `DEEPSEEK_API_KEY`；其他供应商的 key、端点和模型名按所选 Agent 的配置处理 |
+| 对话与通知 | 所用渠道的 App ID / Secret / Token、接收者和账号白名单；只填写自己要使用的渠道 |
+| 文献与知识 | 自己的 Zotero 库、附件目录、语雀知识库；尤其替换 `YUQUE_CHANGE_REPOS_JSON` 中的团队示例 |
+| 代码与环境 | 自己的 Git 凭据、仓库目录、数据路径和挂载；路径关系见 [架构](architecture.md) 与 [可移植性](portability.md) |
+| 日常事务 | 自己的邮箱、待办和推送目标；未使用的接入无需填写业务凭据 |
 
-### 配置云盘路径
+各框架的配置模板分别在 `hermes/`、`claude/config/` 和 `openclaw/config/`。检查机器人名称、Agent 身份与任务说明是否适合自己的用途；已有运行配置不会全部被模板覆盖。
+
+云盘备份按需配置：
 
 ```bash
 cp .cloud.conf.example .cloud.conf
-# 编辑 .cloud.conf，填写本机云盘实际路径
+# 编辑为自己实际存在的云盘目录，然后配置备份路径
 ./scripts/setup-cloud.sh
 ```
 
-## 3. 克隆依赖仓库（可选）
+不使用云盘时可跳过；启用备份时需核对实际写入位置，详见 [备份系统](backup.md)。
 
-部分能力需要额外的仓库。跳过不影响核心服务运行：
+<a id="component-preflight"></a>
+
+## 3. 准备组件并检查依赖
+
+完整主栈通过 `repositories.json` 登记组件来源与版本。克隆工具读取清单，保留已有工作区，不会更新或重置其中的代码。
 
 ```bash
-./scripts/clone-deps.sh       # 克隆 dailyinfo、aisecretary、git-contribution-stats、yuque_mcp_server
+# 按清单取得可访问的组件，放在启动脚本使用的 ~/code 下
+CODE_DIR="$HOME/code" ./scripts/clone-deps.sh
+
+# 只读检查源码、远端和版本，不启动服务
+python3 scripts/repositories.py --check --directory "$HOME/code"
 ```
 
-如需 zhixun 知汛助手（水文智能问答飞书机器人），额外克隆：
+完整启动需要清单中 `required_for_default_stack` 为 `true` 的组件通过检查。遇到 `missing`、`source_unavailable`、`version_mismatch` 或 `origin_mismatch` 时，按报告补齐源码、访问权限、版本或独立的个人副本后再启动；组件状态见 [迁移记录](migration-status.md)。检查通过仅表示源码准备完成，还要继续验证凭据、模型与工具。
+
+**启动范围：** `scripts/start.sh` 会检查默认主栈依赖，并执行完整的 `docker compose up`。没有填写某个工具的业务凭据，并不会自动从主栈移除该容器；选择部分能力的部署裁剪设计见 [Linux 落地计划](linux-delivery-plan.md)。
+
+## 4. 启动完整主栈
+
+依赖检查通过、自己的配置准备完成后执行：
 
 ```bash
-git clone https://github.com/zhuanglaihong/zhixun-agent.git ../zhixun-agent
-```
+# 首次构建，或镜像定义变更后
+./scripts/start.sh --build
 
-依赖关系详见 [可移植性](portability.md)。
-
-## 4. 启动服务
-
-```bash
+# 后续启动
 ./scripts/start.sh
 ```
 
-首次启动或镜像变更后加 `--build`：
+启动脚本会准备配置模板、工具目录、密钥传递和部分定时任务。它会读取已有运行配置，默认按多 Agent 与多工具的主栈启动。服务端口、持久化路径和网络见 [架构](architecture.md)。
+
+## 5. 检查模型、工具和任务输出
 
 ```bash
-./scripts/start.sh --build
+docker compose ps
+docker compose logs --tail=100 hermes
+docker compose exec hermes /opt/hermes/.venv/bin/hermes mcp list
 ```
 
-### 首次启动自动完成的操作
+先从自己的入口完成一次真实任务：读取指定资料，调用已连接工具，把结果保存到自己的笔记或项目目录。核对来源、输出位置和运行记录；容器状态正常或工具列在配置中，不能单独证明任务可用。
 
-| 自动操作 | 目标位置 |
-|----------|----------|
-| 创建 opencode 配置 | `~/.config/opencode/opencode.json` |
-| 创建 Claude Code 配置 | `~/.claude/settings.json` |
-| 创建 cc-connect 配置 | `~/.cc-connect/config.toml` |
-| 创建 OpenClaw 配置 | `~/.openclaw/openclaw.json` |
-| 安装 paper-fetch skill | `~/.openclaw/skills/paper-fetch`、`~/.hermes/skills/paper-fetch` |
-| 安装 paper-queue skill + 身份注入插件 | `~/.openclaw/skills/paper-queue`、`~/.openclaw/extensions/paper-queue-actor` |
-| 注册 Uptime Kuma 监控项 | `~/.uptime-kuma/kuma.db`（容器已 Up 时才执行） |
-| 物化黑名单 API Key | 容器内 `/opt/data/secrets/` |
-| 生成 himalaya 邮件配置 | `~/.hermes/.config/himalaya/config.toml` |
-| 生成 ortie Outlook OAuth 配置 | `~/.hermes/.config/ortie/config.toml`（首次授权需手动 `ortie auth get`） |
-| 生成 cardamum 联系人配置 | `~/.hermes/home/.config/cardamum/config.toml` |
-| 映射 DEEPSEEK_API_KEY → ANTHROPIC_API_KEY | claude-code 容器环境变量 |
-| 初始化 lark-cli 配置 | `~/.lark-cli/` |
+文献连接见 [Zotero](zotero-cli-cc.md)，消息入口见 [Hermes 渠道](hermes-channels.md) 与 [OpenClaw 渠道](openclaw-channels.md)，跨会话记录见 [长期记忆](tdai-memory.md)。
 
-### 启动后：安装宿主机定时任务
+## 后续扩展
 
-Docker 容器内的定时任务（备份、晨间四签、语雀日报）由 `start.sh` 自动注册。宿主机 launchd 定时任务需要手动安装：
-
-```bash
-# 一键安装所有宿主机定时任务（幂等）
-./scripts/launchd/install-all-schedulers.sh
-```
-
-或按需选择：
-
-```bash
-./scripts/launchd/install-dailyinfo.sh        # dailyinfo AI 情报聚合
-./scripts/launchd/install-healthchecks-ping.sh # Healthchecks.io 心跳
-./scripts/launchd/install-collect-agentops.sh  # AgentOps 健康采集
-```
-
-全部定时任务的总览和时序依赖详见 [调度系统](scheduling.md)。
-
-## 5. 启动 zhixun 知汛助手（可选）
-
-zhixun 知汛助手是独立 Compose 栈，不与主栈一起拉起。需要先克隆 zhixun-agent 仓库并创建配置：
-
-```bash
-cp .env.zhixun-bot.example .env.zhixun-bot
-```
-
-编辑 `.env.zhixun-bot`，必填项：
-
-| 变量 | 说明 |
-|------|------|
-| `ZHIXUN_BOT_FEISHU_APP_ID` / `SECRET` | 飞书自建应用凭据 |
-| `ZHIXUN_BOT_MODEL_API_KEY` | DeepSeek API Key |
-
-启动：
-
-```bash
-./scripts/start-zhixun-bot.sh --build    # 首次启动（构建 MCP 镜像）
-./scripts/start-zhixun-bot.sh            # 后续启动
-```
-
-查看状态：
-
-```bash
-docker compose --env-file .env.zhixun-bot -f docker-compose.zhixun-bot.yml ps
-docker compose --env-file .env.zhixun-bot -f docker-compose.zhixun-bot.yml logs -f openclaw-zhixun
-```
-
-详见 [zhixun 知汛助手](zhixun-feishu-bot.md)。
-
-## 6. 启动 tianyi 天一研发助手（可选）
-
-tianyi 天一研发助手同样是独立 Compose 栈（`docker-compose.tianyi-bot.yml`），但它**共享主栈的 `myopenclaw-net` 网络**、复用主栈的 `repo-scanner-mcp`，所以必须先拉起主栈——`start-tianyi-bot.sh` 会检查 `repo-scanner-mcp` 是否在运行，不在就直接退出。
-
-```bash
-cp .env.tianyi-bot.example .env.tianyi-bot
-```
-
-编辑 `.env.tianyi-bot`，必填项（脚本只校验这三个，为空或仍是占位符会报错退出）：
-
-| 变量 | 说明 |
-|------|------|
-| `TIANYI_BOT_FEISHU_APP_ID` / `SECRET` | 飞书自建应用凭据 |
-| `TIANYI_BOT_MODEL_API_KEY` | DeepSeek API Key |
-
-启动：
-
-```bash
-./scripts/start-tianyi-bot.sh --build    # 首次启动
-./scripts/start-tianyi-bot.sh            # 后续启动（内部 --force-recreate）
-```
-
-查看状态：
-
-```bash
-docker compose --env-file .env.tianyi-bot -f docker-compose.tianyi-bot.yml ps
-docker compose --env-file .env.tianyi-bot -f docker-compose.tianyi-bot.yml logs -f openclaw-tianyi
-```
-
-数据目录 `~/.openclaw-tianyi`（可用 `TIANYI_BOT_DATA_DIR` 覆盖，但不能落在 `~/.openclaw` 内）。
-
-## 7. 从云盘恢复数据（可选）
-
-新机器首次部署可跳过。从旧机器迁移时：
-
-```bash
-./scripts/restore.sh all latest
-./scripts/restore.sh hermes latest
-./scripts/restore.sh claude 2026-04-23_090000
-```
-
-如果恢复了 `~/.openclaw/openclaw.json` 或 `~/.cc-connect/config.toml`，start.sh 不会覆盖它们。
-
-## 8. 配置渠道
-
-按需配置：
-
-- **cc-connect 飞书**：在飞书开发者后台创建应用 → 开启机器人 → 填入 `.env` 中 `CC_CONNECT_FEISHU_*` 凭证
-- **OpenClaw 渠道**：详见 [OpenClaw 渠道](openclaw-channels.md)
-- **Hermes 渠道**：详见 [Hermes 渠道](hermes-channels.md)
-- **lark-cli 授权**：详见 [飞书 CLI](lark-cli.md)
+| 需要加入的内容 | 操作入口 |
+|---|---|
+| 信息源、待办与邮件 | [dailyinfo](dailyinfo.md) · [aisecretary](aisecretary.md) · [邮件](email.md) |
+| 定时通知与运行管理 | [调度](scheduling.md) · [监控](monitoring.md) · [备份](backup.md) |
+| 自己的课题组共享服务 | [团队应用案例](team-use-cases.md) · [团队部署](server-deploy.md) |
+| 领域工具参考 | [知汛助手](zhixun-feishu-bot.md)，对应 [zhixun-agent](https://gitcode.com/dlut-water/zhixun-agent) 水文 MCP；其他专业可以接入自己的服务 |
+| 实验协调、Paper2Code 等设计 | [科研助手规划](research-platform-roadmap.md) · [研究引擎接入](research-engine-integration.md) |
 
 ## 日常命令
 
 ```bash
-./scripts/start.sh                        # 启动所有服务
-./scripts/stop.sh                         # 停止所有服务
-docker compose ps                         # 查看服务状态
-docker compose logs -f hermes             # 查看 Hermes 日志
-docker compose logs -f claude-code        # 查看 Claude Code 日志
-docker compose exec backup-cron /scripts/backup-all-docker.sh  # 手动备份
+./scripts/stop.sh                         # 停止主栈
+docker compose ps                        # 查看状态
+docker compose logs -f claude-code       # 查看编码 Agent 日志
 ```
 
-## 可选水文服务的来源
-
-上游已将 zhixun-agent 地址更正为 https://gitcode.com/dlut-water/zhixun-agent 。这是团队服务，当前个人副本仍待取得源码；先按 [Linux 落地计划](linux-delivery-plan.md) 建设个人科研流程。
+换机恢复自己的数据和配置时，按 [备份与恢复](backup.md) 操作。天一与知汛是独立的应用栈，相关启动命令见 [团队部署案例](server-deploy.md) 及 [知汛助手](zhixun-feishu-bot.md)。

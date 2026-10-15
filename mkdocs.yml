@@ -50,18 +50,11 @@ plugins:
 
 nav:
   - 首页: index.md
-  - 同步上游与查看更新: upstream-sync.md
-  - Linux 落地计划: linux-delivery-plan.md
-  - 团队部署（可选）: server-deploy.md
-  - 接入自检（可选）: member-check.md
-  - Linux 上游参考: linux-server-setup.md
-  - 千问听记（可选）: qwennote-mcp-hermes.md
-  - 科研平台规划: research-platform-roadmap.md
-  - AI Scientist 调研: ai-scientist-landscape.md
-  - 科研引擎接入: research-engine-integration.md
-  - 仓库迁移状态: migration-status.md
-  - 快速开始: setup.md
-  - 架构: architecture.md
+  - 开始使用:
+      - 搭建自己的助手: personalize.md
+      - 快速开始: setup.md
+      - 架构: architecture.md
+      - 环境迁移: portability.md
   - 服务:
       - Hermes 渠道: hermes-channels.md
       - OpenClaw 渠道: openclaw-channels.md
@@ -71,14 +64,19 @@ nav:
       - TDAI 长期记忆: tdai-memory.md
       - Google Drive 论文: google-drive-rclone.md
       - Zotero 文献 (mylibrary): zotero-cli-cc.md
-  - 能力:
+  - 通用工具:
       - dailyinfo 调度: dailyinfo.md
-      - 研发日报: daily-dev-report.md
-      - zhixun 知汛助手: zhixun-feishu-bot.md
       - 事务追踪 (aisecretary): aisecretary.md
       - 语雀知识库: yuque-mcp-hermes.md
-      - 服务器监控 MCP: server-monitoring-mcp.md
       - 论文清单 (paper-queue): paper-queue.md
+      - 千问听记（可选）: qwennote-mcp-hermes.md
+  - 团队应用案例:
+      - iHeadWater 工作流: team-use-cases.md
+      - 共享服务部署: server-deploy.md
+      - 团队接入自检: member-check.md
+      - 天一研发日报: daily-dev-report.md
+      - 知汛水文助手: zhixun-feishu-bot.md
+      - 团队服务器监控 MCP: server-monitoring-mcp.md
   - 运维:
       - 调度系统: scheduling.md
       - Hermes Skill 机制: hermes-skills.md
@@ -86,7 +84,14 @@ nav:
       - 服务监控: monitoring.md
       - AgentOps 健康采集: agentops.md
       - DNS 配置: dns-setup.md
-      - 可移植性: portability.md
+      - 同步与查看更新: upstream-sync.md
+  - 设计与规划:
+      - 科研助手规划: research-platform-roadmap.md
+      - 研究引擎接入: research-engine-integration.md
+      - AI Scientist 调研: ai-scientist-landscape.md
+      - Linux 落地计划: linux-delivery-plan.md
+      - Linux 环境参考: linux-server-setup.md
+      - 仓库迁移状态: migration-status.md
 
 exclude_docs: |
   upstream/
