@@ -1,5 +1,5 @@
 site_name: MySciAgent
-site_description: 个人多 Agent 协作平台 — Docker Compose 一键部署文档
+site_description: 开箱即用的 AI 科研助手与个人秘书
 site_url: https://zhuanglaihong.github.io/mysciagent
 repo_url: https://github.com/zhuanglaihong/mysciagent
 repo_name: zhuanglaihong/mysciagent
@@ -50,6 +50,7 @@ plugins:
 
 nav:
   - 首页: index.md
+  - 同步上游与查看更新: upstream-sync.md
   - Linux 落地计划: linux-delivery-plan.md
   - 团队部署（可选）: server-deploy.md
   - 接入自检（可选）: member-check.md

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## MySciAgent migration context
 
-This repository is MySciAgent, a personal multi-agent research collaboration platform based on myopenclaw. Read `repositories.json`, `docs/migration-status.md` and `docs/research-platform-roadmap.md` before changing integration or runtime configuration. The inherited stack is not validated as deployable: required sources are missing and the available Yuque snapshot is incompatible. Use owned component repos; preserve upstream provenance and component licenses. Research orchestration, Paper2Code and model routing are roadmap work, not implemented features.
+This repository is MySciAgent, an out-of-the-box AI research assistant and personal secretary based on myopenclaw; multi-agent collaboration is an implementation mechanism. Read `repositories.json`, `docs/migration-status.md` and `docs/research-platform-roadmap.md` before changing integration or runtime configuration. The inherited stack is not validated as deployable: required sources are missing and the available Yuque snapshot is incompatible. Use owned component repos; preserve upstream provenance and component licenses. Research orchestration, Paper2Code and model routing are roadmap work, not implemented features.
 
 ## Inherited Runtime Overview
 

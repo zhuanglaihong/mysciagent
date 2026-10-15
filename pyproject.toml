@@ -1,7 +1,7 @@
 [project]
 name = "mysciagent"
 version = "0.1.0"
-description = "MySciAgent 多智能体科研协作平台 — 集成与部署文档"
+description = "MySciAgent — 开箱即用的 AI 科研助手与个人秘书"
 requires-python = ">=3.12"
 
 [build-system]
