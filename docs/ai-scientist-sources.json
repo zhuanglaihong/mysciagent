@@ -1,0 +1,279 @@
+{
+  "reviewed_date": "2026-10-15",
+  "scope": "25 representative systems and benchmarks, not exhaustive",
+  "repositories": [
+    {
+      "repo": "karpathy/autoresearch",
+      "canonical": "karpathy/autoresearch",
+      "url": "https://github.com/karpathy/autoresearch",
+      "license": null,
+      "branch": "master",
+      "commit": "228791fb499afffb54b46200aca536f79142f117",
+      "description": "AI agents running research on single-GPU nanochat training automatically",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "source_files_read": [
+        "program.md"
+      ],
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "SakanaAI/AI-Scientist",
+      "canonical": "SakanaAI/AI-Scientist",
+      "url": "https://github.com/SakanaAI/AI-Scientist",
+      "license": "NOASSERTION",
+      "branch": "main",
+      "commit": "1de1dbc1f4ee2c5f61e9c94348d55eb51d7fa2eb",
+      "description": "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery 🧑‍🔬",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "SakanaAI/AI-Scientist-v2",
+      "canonical": "SakanaAI/AI-Scientist-v2",
+      "url": "https://github.com/SakanaAI/AI-Scientist-v2",
+      "license": "NOASSERTION",
+      "branch": "main",
+      "commit": "96bd51617cfdbb494a9fc283af00fe090edfae48",
+      "description": "The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "SakanaAI/ShinkaEvolve",
+      "canonical": "SakanaAI/ShinkaEvolve",
+      "url": "https://github.com/SakanaAI/ShinkaEvolve",
+      "license": "Apache-2.0",
+      "branch": "main",
+      "commit": "8adc053a2ce4511ad2ac310e004c530a73fb974a",
+      "description": "ShinkaEvolve: Towards Open-Ended and Sample-Efficient Program Evolution 🧬",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "algorithmicsuperintelligence/openevolve",
+      "canonical": "algorithmicsuperintelligence/openevolve",
+      "url": "https://github.com/algorithmicsuperintelligence/openevolve",
+      "license": "Apache-2.0",
+      "branch": "main",
+      "commit": "a1e9d91eecde612f0efc8e8e31f59b36998248c0",
+      "description": "Open-source implementation of AlphaEvolve",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "microsoft/RD-Agent",
+      "canonical": "microsoft/RD-Agent",
+      "url": "https://github.com/microsoft/RD-Agent",
+      "license": "MIT",
+      "branch": "main",
+      "commit": "484776c211e4fbbeef03e0ec00d6bbee7362a4f4",
+      "description": "Research and development (R&D) is crucial for the enhancement of industrial productivity, especially in the AI era, where the core aspects of R&D are mainly focused on data and models. We are committed to automating these high-value generic R&D processes through R&D-Agent, which lets AI drive data-driven AI. 🔗https://aka.ms/RD-Agent-Tech-Report",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "source_files_read": [
+        "rdagent/core/proposal.py"
+      ],
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "going-doer/Paper2Code",
+      "canonical": "going-doer/Paper2Code",
+      "url": "https://github.com/going-doer/Paper2Code",
+      "license": "Apache-2.0",
+      "branch": "master",
+      "commit": "ba9169978043d5799c8d4f4a0963e6b66a24c2e1",
+      "description": "Paper2Code: Automating Code Generation from Scientific Papers in Machine Learning",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "jmiao24/Paper2Agent",
+      "canonical": "jmiao24/Paper2Agent",
+      "url": "https://github.com/jmiao24/Paper2Agent",
+      "license": "MIT",
+      "branch": "main",
+      "commit": "8c2d059165ef8cdcb70dbea76655b9c2b55b38e6",
+      "description": "Paper2Agent is a multi-agent AI system that automatically transforms research papers into interactive AI agents.",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "source_files_read": [
+        "skills/paper2agent/SKILL.md"
+      ],
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "SamuelSchmidgall/AgentLaboratory",
+      "canonical": "SamuelSchmidgall/AgentLaboratory",
+      "url": "https://github.com/SamuelSchmidgall/AgentLaboratory",
+      "license": "MIT",
+      "branch": "main",
+      "commit": "d9017d90e329112d2a80b7712f37ee9094d2cd27",
+      "description": "Agent Laboratory is an end-to-end autonomous research workflow meant to assist you as the human researcher toward implementing your research ideas",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "WecoAI/aideml",
+      "canonical": "WecoAI/aideml",
+      "url": "https://github.com/WecoAI/aideml",
+      "license": "MIT",
+      "branch": "main",
+      "commit": "1d8ec4026c67729443294c8b5c0907242d0de38c",
+      "description": "AIDE: an LLM agent for machine learning engineering - the research Weco grew out of. Referenced in OpenAI MLE-bench.",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "source_files_read": [
+        "aide/agent.py"
+      ],
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "HKUDS/AI-Researcher",
+      "canonical": "HKUDS/AI-Researcher",
+      "url": "https://github.com/HKUDS/AI-Researcher",
+      "license": null,
+      "branch": "main",
+      "commit": "f9a6f8480860c193afff600eeffe3defcee8a978",
+      "description": "[NeurIPS2025] \"AI-Researcher: Autonomous Scientific Innovation\" -- A production-ready version: https://novix.science/chat",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "facebookresearch/aira-dojo",
+      "canonical": "facebookresearch/aira-dojo",
+      "url": "https://github.com/facebookresearch/aira-dojo",
+      "license": "NOASSERTION",
+      "branch": "main",
+      "commit": "c795d8649d30b77fa9b8c011b978bba7127507ad",
+      "description": "AIRA-dojo: a framework for developing and evaluating AI research agents",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "Future-House/paper-qa",
+      "canonical": "Future-House/paper-qa",
+      "url": "https://github.com/Future-House/paper-qa",
+      "license": "Apache-2.0",
+      "branch": "main",
+      "commit": "57e89f7223b0960d5ee5ea048c69e3c47e088572",
+      "description": "High accuracy RAG for answering questions from scientific documents with citations",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "openai/mle-bench",
+      "canonical": "openai/mle-bench",
+      "url": "https://github.com/openai/mle-bench",
+      "license": "NOASSERTION",
+      "branch": "main",
+      "commit": "507f92e1138bb6e40dac5c6ee7a6758e6424bf97",
+      "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "openai/preparedness",
+      "canonical": "openai/frontier-evals",
+      "url": "https://github.com/openai/frontier-evals",
+      "license": "MIT",
+      "branch": "main",
+      "commit": "b78dab1da774a6456b1ed9c48c9ff194ee3ff36d",
+      "description": "OpenAI Frontier Evals",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "google-deepmind/funsearch",
+      "canonical": "google-deepmind/funsearch",
+      "url": "https://github.com/google-deepmind/funsearch",
+      "license": "Apache-2.0",
+      "branch": "main",
+      "commit": "cc53f274237d7ab05c19df939edbc1f9616a7c19",
+      "description": null,
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "google-deepmind/alphaevolve_results",
+      "canonical": "google-deepmind/alphaevolve_results",
+      "url": "https://github.com/google-deepmind/alphaevolve_results",
+      "license": "Apache-2.0",
+      "branch": "main",
+      "commit": "4226acbf237ff9ad10ba7673a2af127a2d8a5971",
+      "description": null,
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    },
+    {
+      "repo": "elchulito88/ml-master",
+      "canonical": "elchulito88/ml-master",
+      "url": "https://github.com/elchulito88/ml-master",
+      "license": null,
+      "branch": "main",
+      "commit": "73feb0dab099aa2c7667b7e30853ac3fb7239f0f",
+      "description": "The official implementation of \"ML-Master: Towards AI-for-AI via Integration of Exploration and Reasoning\"",
+      "review_depth": "Repository metadata and README; not installed or benchmarked",
+      "license_note": "GitHub metadata only; null/NOASSERTION does not determine reuse rights"
+    }
+  ],
+  "additional_primary_sources": [
+    {
+      "title": "AlphaEvolve official",
+      "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+    },
+    {
+      "title": "AI co-scientist official",
+      "url": "https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/"
+    },
+    {
+      "title": "Kosmos engineering",
+      "url": "https://advances.edisonscientific.com/research/how-we-built-kosmos/"
+    },
+    {
+      "title": "Virtual Lab",
+      "url": "https://www.nature.com/articles/s41586-025-09442-9"
+    },
+    {
+      "title": "Paper2Agent paper",
+      "url": "https://www.nature.com/articles/s41586-026-11044-y"
+    },
+    {
+      "title": "Paper2Code paper",
+      "url": "https://arxiv.org/abs/2504.17192"
+    },
+    {
+      "title": "AI Scientist v2 paper",
+      "url": "https://arxiv.org/abs/2504.08066"
+    },
+    {
+      "title": "AlphaEvolve paper",
+      "url": "https://arxiv.org/abs/2506.13131"
+    },
+    {
+      "title": "AgentRxiv",
+      "url": "https://arxiv.org/abs/2503.18102"
+    },
+    {
+      "title": "PaperBench",
+      "url": "https://arxiv.org/abs/2504.01848"
+    },
+    {
+      "title": "MLR-Bench",
+      "url": "https://arxiv.org/abs/2505.19955"
+    },
+    {
+      "title": "MLRC-Bench",
+      "url": "https://arxiv.org/abs/2504.09702"
+    },
+    {
+      "title": "ML-Master",
+      "url": "https://arxiv.org/abs/2506.16499"
+    },
+    {
+      "title": "AIRA paper",
+      "url": "https://arxiv.org/abs/2507.02554"
+    },
+    {
+      "title": "LLM speedrunning",
+      "url": "https://arxiv.org/abs/2506.22419"
+    }
+  ],
+  "limits": "Read-only research; no upstream systems installed, no benchmark results reproduced, no model API calls. Repository commit identifiers capture API response at review time; article and paper descriptions are source-reported evidence."
+}

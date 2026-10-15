@@ -51,6 +51,8 @@ plugins:
 nav:
   - 首页: index.md
   - 科研平台规划: research-platform-roadmap.md
+  - AI Scientist 调研: ai-scientist-landscape.md
+  - 科研引擎接入: research-engine-integration.md
   - 仓库迁移状态: migration-status.md
   - 快速开始: setup.md
   - 架构: architecture.md

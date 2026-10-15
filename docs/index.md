@@ -15,6 +15,8 @@
 | 文档 | 用途 |
 |---|---|
 | [科研平台建设规划](research-platform-roadmap.md) | 目的、科研环节、对接平台、Agent 分工、模型路由、Paper2Code、实验仓库及五阶段验收 |
+| [AI Scientist 调研](ai-scientist-landscape.md) | 25 项相关工作、实现机制、适用边界与取舍 |
+| [研究引擎接入设计](research-engine-integration.md) | 研究任务、运行证据、模型交接、引擎接口与开发顺序 |
 | [仓库迁移状态](migration-status.md) | 哪些已经复制、哪些复用、哪些无法取得，以及验证范围 |
 | [repositories.json](https://github.com/zhuanglaihong/mysciagent/blob/main/repositories.json) | 机器可读的个人仓库地址、上游来源、版本和依赖状态 |
 | [上游运行架构](architecture.md) | 继承的 Hermes / Claude Code / OpenClaw 与工具服务布局；不代表本机部署状态 |
